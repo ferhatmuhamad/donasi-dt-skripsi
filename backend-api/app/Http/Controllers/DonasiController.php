@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DoaModel;
 use App\Models\DonasiModel;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,9 +13,11 @@ class DonasiController extends Controller
 {
     //
     protected $donasi_model;
+    protected $doa_model;
     public function __construct()
     {
         $this->donasi_model = new DonasiModel();
+        $this->doa_model = new DoaModel();
     }
 
     public function prosesDonasi($id, Request $request) {
