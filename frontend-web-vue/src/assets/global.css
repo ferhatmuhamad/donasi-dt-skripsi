@@ -17,3 +17,21 @@ input[type=number]:focus,
 [contenteditable].form-control:focus {
   box-shadow: none;
 }
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 14px;
+    line-height: 3;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+.fs12 {
+  font-size: 12px;
+}
+
+a {
+  color: black;
+}

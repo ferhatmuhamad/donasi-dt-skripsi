@@ -5,6 +5,9 @@ import router from './router'
 import store from './store'
 import './assets/global.css'
 
+import VueElementLoading from 'vue-element-loading'
+Vue.component('VueElementLoading', VueElementLoading)
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
