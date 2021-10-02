@@ -8,8 +8,50 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
+  
+
+  // auth
+  {
+    path: '/auth/login',
+    name: 'Login',
+    component: () => import('../views/auth/LoginViews.vue')
+  },
+  {
+    path: '/auth/register',
+    name: 'Register',
+    component: () => import('../views/auth/RegisterViews.vue')
+  },
+  {
+    path: '/auth/forgotpassword',
+    name: 'Forgot Password',
+    component: () => import('../views/auth/ForgetPasswordViews.vue')
+  },
+  {
+    path: '/auth/forgotpassword/confirmation',
+    name: 'Forgot Password',
+    component: () => import('../views/auth/ForgetPasswordConfirmationViews.vue')
+  },
+
+
+  // campaign detail
+  {
+    path: '/campaign/:slug',
+    name: 'Campaign Detail',
+    component: () => import('../views/beranda/campaign/CampaignDetailViews.vue')
+  },
+  {
+    path: '/campaign/:slug/resume',
+    name: 'Campaign Resume',
+    component: () => import('../views/beranda/campaign/CampaignDetailResumeViews.vue')
+  },
+  {
+    path: '/campaign/:slug/confirm',
+    name: 'Campaign Confirm',
+    component: () => import('../views/beranda/campaign/CampaignDetailConfirmViews.vue')
+  },
+
   {
     path: '/about',
     name: 'About',
@@ -17,7 +59,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  },
 ]
 
 const router = new VueRouter({
