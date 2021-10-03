@@ -23,7 +23,7 @@
             <!-- alert when error message -->
             <div v-if="errorMessageAPI != ''">
               <div class="alert alert-danger mt-4 font-weight-light">
-                {{errorMessageAPI}}
+                {{ errorMessageAPI }}
               </div>
             </div>
 
@@ -66,6 +66,7 @@
 
 <script>
 import LogoImport from "../../assets/logo.png";
+import axios from "axios";
 export default {
   name: "LoginViews",
 
@@ -79,7 +80,7 @@ export default {
       },
 
       isActive: false,
-      errorMessageAPI: ""
+      errorMessageAPI: "",
     };
   },
 
@@ -89,17 +90,31 @@ export default {
       console.log("Login proses");
 
       this.hitAPILogin();
+    },
 
+    errorHitAPI() {
+      console.log("terjadi error");
       setTimeout(() => {
         this.isActive = false;
-        this.errorMessageAPI = "Sepertinya ada kesalahan. Mohon mencoba kembali"
+        this.errorMessageAPI = "Sepertinya ada kesalahan. Mohon mencoba kembali";
       }, 10000);
     },
 
     hitAPILogin() {
       this.errorMessageAPI = "";
-      console.log('hit api user login');
-    }
+      axios
+        .post(process.env.VUE_APP_API + "login", {
+          email: this.filled.email,
+          password: this.filled.password,
+        })
+        .then((resp) => {
+          console.log(resp);
+          this.isActive = false;
+        })
+        .catch(() => {
+          this.errorHitAPI();
+        })
+    },
   },
 };
 </script>

@@ -38,7 +38,7 @@ class AuthController extends Controller
         //Crean token
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return format_response('success', 400, 'login credentials invalid', null);
+                return format_response('failed', 400, 'login credentials invalid', null);
             }
         } catch (JWTException $e) {
             return format_response('failed', 500, 'failed created token!', null);
