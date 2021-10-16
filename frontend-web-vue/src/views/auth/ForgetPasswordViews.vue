@@ -32,6 +32,8 @@
               <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #31a05f">Kirim</button>
             </div>
           </div>
+
+          <div class="mt-4" @click="kembali()">Kembali</div>
         </div>
       </div>
     </div>
@@ -48,6 +50,12 @@ export default {
       logoIMG: LogoImport,
     };
   },
+
+  methods: {
+    kembali() {
+      this.$router.go(-1);
+    }
+  }
 };
 </script>
 

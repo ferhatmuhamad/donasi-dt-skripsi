@@ -30,12 +30,24 @@
             <!-- login input -->
             <div class="row" style="margin-top: 40px">
               <div class="col" style="font-size: 14px">
-                <div>
-                  <input type="text" class="form-control py-4 border-1" placeholder="Email Anda..." v-model="filled.email" />
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="background-color: #FFFFFF">
+                      <b-icon-envelope></b-icon-envelope>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control py-4 border-left-0" placeholder="Email Anda..." v-model="filled.email" />
                 </div>
-                <div class="mt-2">
-                  <input type="password" class="form-control py-4 border-1" placeholder="Password Anda..." v-model="filled.password" />
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" style="background-color: #FFFFFF">
+                      <b-icon-key-fill></b-icon-key-fill>
+                    </span>
+                  </div>
+                  <input type="password" class="form-control py-4 border-left-0" placeholder="Password Anda..." v-model="filled.password" />
                 </div>
+
               </div>
             </div>
 
@@ -51,10 +63,10 @@
           <div class="row mt-4" style="font-size: 14px">
             <div class="col">
               <div class="text-center">
-                <router-link to="/auth/forgotpassword" class="font-weight-bold text-black">Lupa Password ?</router-link>
+                <router-link to="/auth/forgotpassword" class="font-weight-bold text-black" style="color: #31a05f">Lupa Password ?</router-link>
               </div>
               <div class="mt-3">
-                <div><span class="text-muted" style="font-weight: 300">Belum punya akun ?</span> <router-link to="/auth/register" class="font-weight-bold">Daftar Sekarang!</router-link></div>
+                <div><span class="text-muted" style="font-weight: 300">Belum punya akun ?</span> <router-link to="/auth/register" class="font-weight-bold" style="color: #31a05f">Daftar Sekarang!</router-link></div>
               </div>
             </div>
           </div>
@@ -109,6 +121,13 @@ export default {
         })
         .then((resp) => {
           console.log(resp);
+          if(resp.data.meta.status == 'success') {
+            // lakukan manage vuex for user
+            let token = resp.data.data.token;
+            this.$store.commit('login', token);
+          } else if(resp.data.meta.status == 'error') {
+            // error validation
+          }
           this.isActive = false;
         })
         .catch(() => {

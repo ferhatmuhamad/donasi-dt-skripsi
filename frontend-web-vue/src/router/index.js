@@ -10,7 +10,7 @@ const routes = [
     name: 'Home',
     component: Home,
   },
-  
+
 
   // auth
   {
@@ -30,7 +30,7 @@ const routes = [
   },
   {
     path: '/auth/forgotpassword/confirmation',
-    name: 'Forgot Password',
+    name: 'Forgot Password Confirmation',
     component: () => import('../views/auth/ForgetPasswordConfirmationViews.vue')
   },
 
