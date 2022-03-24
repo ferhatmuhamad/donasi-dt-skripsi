@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ForgotPasswordModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,7 @@ class AuthController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'prosesForgotPassword']]);
     }
 
     public function login(Request $request)
@@ -78,6 +80,89 @@ class AuthController extends Controller
         return format_response('success', Response::HTTP_OK, 'user successfully created', $user);
     }
 
+    public function forgotPassword(Request $request) {
+
+        $email = $request->email;
+
+        $data = $request->only('email');
+        $validator = Validator::make($data, [
+            'email' => 'required|email',
+        ]);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            return format_response('error', Response::HTTP_BAD_REQUEST, 'error validation', $validator->getMessageBag());
+        }
+
+        $datauser = User::where('email', $email)->first();
+
+        if($datauser == null) {
+            return format_response('error', Response::HTTP_NOT_FOUND, 'user not found!', null);
+        }
+
+        // restrict brute force token
+        $searchForgotPassword = ForgotPasswordModel::where('id_user', $datauser->id_user)->where('status', 0)->orderBy('created_at', 'desc')->first();
+        
+        if($searchForgotPassword) {
+            if((time() - strtotime($searchForgotPassword->updated_at)) < 180) {
+                return format_response('failed', Response::HTTP_BAD_REQUEST, 'Too many request!. Please wait', null);
+            }
+        }    
+
+
+        $hashToken = md5($datauser->email . '-' . time());
+
+        $forgetPassword = ForgotPasswordModel::create([
+            'id_user' => $datauser->id_user,
+            'token' => $hashToken,
+            'link' => 'forgot-password/' . $hashToken,
+            'status' => 0
+        ]);
+
+        return format_response('success', Response::HTTP_OK, 'Reset password link has been sent to email!', null);
+
+    }
+
+    public function prosesForgotPassword(Request $request) {
+
+        $data = $request->only('email', 'password', 'token');
+
+        $validator = Validator::make($data, [
+            'email' => 'required|email',
+            'password' => 'required|string|min:6|max:50',
+            'token' => 'required'
+        ]);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            return format_response('error', Response::HTTP_BAD_REQUEST, 'error validation', $validator->getMessageBag());
+        }
+
+        // get token
+        $tokenForgot = ForgotPasswordModel::where('token', $request->token)->first();
+
+        if($tokenForgot == null) {
+            return format_response('failed', Response::HTTP_UNAUTHORIZED, 'error token', null);
+        }
+
+        $datauser = User::where('email', $request->email)->first();
+
+        if($datauser == null) {
+            return format_response('error', Response::HTTP_NOT_FOUND, 'user not found!', null);
+        }
+
+        $passwordHash = Hash::make($request->password);
+
+        $datauser->password = $passwordHash;
+        $datauser->save();
+
+        $tokenForgot->status = 1;
+        $tokenForgot->save();
+
+        return format_response('success', Response::HTTP_OK, 'success change password!', $passwordHash);
+
+    }
+
     public function userProfile()
     {
         try {
@@ -87,4 +172,6 @@ class AuthController extends Controller
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'can not fetch user data', null);
         }
     }
+
+    
 }

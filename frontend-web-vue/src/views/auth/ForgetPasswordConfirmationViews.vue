@@ -32,7 +32,7 @@
       <!-- button login -->
       <div class="row" style="margin-top: 30px">
         <div class="col">
-          <button class="btn btn-success btn-block py-3 font-weight-bold shadow">Ganti Password</button>
+          <button class="btn btn-block py-3 font-weight-bold shadow text-white" style="background-color: #12569A">Ganti Password</button>
         </div>
       </div>
 

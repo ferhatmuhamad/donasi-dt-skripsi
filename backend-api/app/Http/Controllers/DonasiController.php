@@ -51,6 +51,6 @@ class DonasiController extends Controller
             }
         }
 
-        return format_response('success', Response::HTTP_OK, 'success funding campaign', $user->id_user);
+        return format_response('success', Response::HTTP_OK, 'success funding campaign', $dataDonasi);
     }
 }

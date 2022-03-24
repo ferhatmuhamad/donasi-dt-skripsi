@@ -41,7 +41,7 @@
           <!-- button login -->
           <div class="row mt-3">
             <div class="col">
-              <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #31a05f">Daftar Sekarang</button>
+              <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #12569A">Daftar Sekarang</button>
             </div>
           </div>
 

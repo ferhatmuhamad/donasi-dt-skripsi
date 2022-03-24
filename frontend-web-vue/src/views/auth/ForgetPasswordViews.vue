@@ -29,7 +29,7 @@
           <!-- button login -->
           <div class="row" style="margin-top: 30px">
             <div class="col">
-              <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #31a05f">Kirim</button>
+              <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #12569A">Kirim</button>
             </div>
           </div>
 
