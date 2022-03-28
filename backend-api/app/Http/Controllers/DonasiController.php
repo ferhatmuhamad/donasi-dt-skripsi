@@ -53,4 +53,17 @@ class DonasiController extends Controller
 
         return format_response('success', Response::HTTP_OK, 'success funding campaign', $dataDonasi);
     }
+
+    public function myDonation(Request $request) {
+        $user = JWTAuth::user();
+
+        try {
+            $donation = DonasiModel::where('id_user', $user->id_user)->orderBy('created_at', 'desc')->get();
+        } catch(Exception $e) {
+            return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'failed create funding transaction', $e);
+        }
+        
+
+        return format_response('success', Response::HTTP_OK, 'success funding campaign', $donation);
+    }
 }
