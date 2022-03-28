@@ -12,5 +12,5 @@ class DonasiModel extends Model
     public $timestamps = true;
     protected $primaryKey = 'id_donasi';
 
-    protected $fillable = ['id_donasi', 'id_campaign', 'id_user', 'amount', 'bukti_transfer', 'status'];
+    protected $fillable = ['id_donasi', 'id_campaign', 'kode_donasi','id_user', 'amount', 'bukti_transfer', 'status'];
 }

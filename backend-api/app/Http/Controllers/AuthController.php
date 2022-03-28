@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DonasiModel;
 use App\Models\ForgotPasswordModel;
 use App\Models\User;
 use Carbon\Carbon;
@@ -167,6 +168,11 @@ class AuthController extends Controller
     {
         try {
             $user = JWTAuth::user();
+
+            $total_donation = DonasiModel::where('id_user', $user->id_user)->where('status', 'success')->sum('amount');
+
+            $user->total_donation = $total_donation;
+
             return format_response('success', Response::HTTP_OK, 'user successfully fetch', $user);
         } catch(JWTException $e) {
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'can not fetch user data', null);
