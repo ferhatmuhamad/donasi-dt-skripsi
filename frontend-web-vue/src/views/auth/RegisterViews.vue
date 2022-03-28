@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" style="margin-top: 50px">
         <div class="col-lg-6">
           <div class="row" style="margin-top: 30px">
             <div class="col">

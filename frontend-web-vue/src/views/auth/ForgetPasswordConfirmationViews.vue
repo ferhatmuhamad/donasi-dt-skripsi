@@ -32,15 +32,18 @@
       <!-- button login -->
       <div class="row" style="margin-top: 30px">
         <div class="col">
-          <button class="btn btn-block py-3 font-weight-bold shadow text-white" style="background-color: #12569A">Ganti Password</button>
+          <button class="btn btn-block py-3 font-weight-bold shadow text-white" style="background-color: #12569A" @click="changePassword()">Ganti Password</button>
         </div>
       </div>
+
+      <vue-element-loading :active="loading" spinner="bar-fade-scale" color="#12569A" />
 
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import LogoImport from "../../assets/logo.png";
 export default {
   name: "ForgetPasswordConfirmationViews",
@@ -48,8 +51,43 @@ export default {
   data() {
     return {
       logoIMG: LogoImport,
+
+      filled: {
+        password: null,
+        passwordConfirmation: null
+      },
+
+      loading: false,
+      token: this.$route.params.token,
+      errorValidation: {}
     };
+
+
   },
+
+  methods: {
+    changePassword() {
+
+      this.loading = true;
+
+      axios.post(process.env.VUE_APP_API + '', {
+      }).then((resp) => {
+        if(resp.data.status == 'success') {
+          this.loading = false;
+
+          // do it
+        } else {
+          this.loading = false;
+
+          // do it when error
+        }
+      }).catch(() => {
+        setTimeout(() => {
+          this.loading = false;
+        }, 5000);
+      })
+    }
+  }
 };
 </script>
 

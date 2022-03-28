@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" style="margin-top: 50px">
         <div class="col-lg-6">
           <vue-element-loading :active="isActive" spinner="bar-fade-scale" color="#31a05f" />
 

@@ -29,7 +29,7 @@ const routes = [
     component: () => import('../views/auth/ForgetPasswordViews.vue')
   },
   {
-    path: '/auth/forgotpassword/confirmation',
+    path: '/auth/forgotpassword/confirmation/:token',
     name: 'Forgot Password Confirmation',
     component: () => import('../views/auth/ForgetPasswordConfirmationViews.vue')
   },
