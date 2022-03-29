@@ -17,33 +17,35 @@
             </div>
           </div>
 
-          <!-- login input -->
-          <div class="row" style="margin-top: 40px">
-            <div class="col" style="font-size: 14px">
-              <div>
-                <input type="text" class="form-control py-4 border-1" placeholder="Nama Anda..." />
-              </div>
-              <div>
-                <input type="email" class="form-control py-4 border-1 mt-2" placeholder="Email Anda..." />
-              </div>
-              <div>
-                <input type="password" class="form-control py-4 border-1 mt-2" placeholder="Password Anda..." />
-              </div>
-              <div>
-                <input type="password_confirmation" class="form-control py-4 border-1 mt-2" placeholder="Konfirmasi Password ..." />
-              </div>
-              <div>
-                <input type="hp" class="form-control py-4 border-1 mt-2" placeholder="No HP/WA..." />
+          <form @submit.prevent="">
+            <!-- login input -->
+            <div class="row" style="margin-top: 40px">
+              <div class="col" style="font-size: 14px">
+                <div>
+                  <input type="text" class="form-control py-4 border-1" placeholder="Nama Anda..." />
+                </div>
+                <div>
+                  <input type="email" class="form-control py-4 border-1 mt-2" placeholder="Email Anda..." />
+                </div>
+                <div>
+                  <input type="password" class="form-control py-4 border-1 mt-2" placeholder="Password Anda..." />
+                </div>
+                <div>
+                  <input type="password_confirmation" class="form-control py-4 border-1 mt-2" placeholder="Konfirmasi Password ..." />
+                </div>
+                <div>
+                  <input type="hp" class="form-control py-4 border-1 mt-2" placeholder="No HP/WA..." />
+                </div>
               </div>
             </div>
-          </div>
+          </form>
 
-          <!-- button login -->
-          <div class="row mt-3">
-            <div class="col">
-              <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #12569A">Daftar Sekarang</button>
+            <!-- button login -->
+            <div class="row mt-3">
+              <div class="col">
+                <button class="btn text-white btn-block py-3 font-weight-bold shadow" style="background-color: #12569A">Daftar Sekarang</button>
+              </div>
             </div>
-          </div>
 
           <!-- forgot password -->
           <div class="row mt-4" style="font-size: 14px">

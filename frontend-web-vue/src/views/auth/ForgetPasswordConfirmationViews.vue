@@ -18,23 +18,25 @@
       </div>
 
       <!-- login input -->
-      <div class="row" style="margin-top: 40px">
-        <div class="col" style="font-size: 14px">
-          <div>
-            <input type="password" class="form-control py-4 border-1" placeholder="Password Anda..." />
-          </div>
-          <div>
-            <input type="password" class="form-control py-4 border-1 mt-2" placeholder="Konfirmasi Password Anda..." />
+      <form @submit.prevent="changePassword">
+        <div class="row" style="margin-top: 40px">
+          <div class="col" style="font-size: 14px">
+            <div>
+              <input type="password" class="form-control py-4 border-1" placeholder="Password Anda..." />
+            </div>
+            <div>
+              <input type="password" class="form-control py-4 border-1 mt-2" placeholder="Konfirmasi Password Anda..." />
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- button login -->
-      <div class="row" style="margin-top: 30px">
-        <div class="col">
-          <button class="btn btn-block py-3 font-weight-bold shadow text-white" style="background-color: #12569A" @click="changePassword()">Ganti Password</button>
+        <!-- button login -->
+        <div class="row" style="margin-top: 30px">
+          <div class="col">
+            <button type="submit" class="btn btn-block py-3 font-weight-bold shadow text-white" style="background-color: #12569A">Ganti Password</button>
+          </div>
         </div>
-      </div>
+      </form>
 
       <vue-element-loading :active="loading" spinner="bar-fade-scale" color="#12569A" />
 
