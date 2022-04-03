@@ -14,7 +14,12 @@ input[type=number]:focus,
 [type=password].form-control:focus, 
 [type=email].form-control:focus, 
 [type=tel].form-control:focus, 
-[contenteditable].form-control:focus {
+[contenteditable].form-control:focus,
+option.form-control,
+option.form-control:focus,
+select.form-control,
+select.form-control:focus
+{
   box-shadow: none;
 }
 

@@ -42,12 +42,12 @@ const routes = [
     component: () => import('../views/beranda/campaign/CampaignDetailViews.vue')
   },
   {
-    path: '/campaign/:slug/resume',
+    path: '/campaign/:slug/fund',
     name: 'Campaign Resume',
     component: () => import('../views/beranda/campaign/CampaignDetailResumeViews.vue')
   },
   {
-    path: '/campaign/:slug/confirm',
+    path: '/campaign/:invoice/confirm',
     name: 'Campaign Confirm',
     component: () => import('../views/beranda/campaign/CampaignDetailConfirmViews.vue')
   },
