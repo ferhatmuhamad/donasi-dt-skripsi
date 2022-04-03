@@ -11,8 +11,10 @@
           </div>
 
           <!-- for mobile -->
-          <div >
-            <input type="text" class="form-control inputsm" style="width: 100%">
+          <div style="width: 80%">
+            <form @click.prevent="">
+              <input type="text" class="form-control inputsm" style="width: 100%" placeholder="Cari Donasi...">
+            </form>
           </div>
 
           <!-- for mobile -->
