@@ -4,44 +4,44 @@
     <nav class="navbar navbar-expand navbar-light fixed-bottom d-md-none d-lg-none d-xl-none" style="background-color: #f4f4f4;">
       <ul class="navbar-nav nav-justified w-100">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <router-link to="/" class="nav-link">
             <div>
               <font-awesome-icon icon="fa-solid fa-house-chimney" />
             </div>
             <div style="font-size: 8px">
               Beranda
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <router-link to="/myfunding" class="nav-link">
             <div>
               <font-awesome-icon icon="fa-solid fa-clipboard-list" />
             </div>
             <div style="font-size: 8px">
               Donasi
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <router-link to class="nav-link">
             <div>
               <font-awesome-icon icon="fa-solid fa-envelope" />
             </div>
             <div style="font-size: 8px">
               Pesan
             </div>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <router-link to="/account" class="nav-link">
             <div>
               <font-awesome-icon icon="fa-solid fa-user" />
             </div>
             <div style="font-size: 8px">
               Akun
             </div>
-          </a>
+          </router-link>
         </li>
       </ul>
     </nav>
