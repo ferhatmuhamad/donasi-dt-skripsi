@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
+import DonasiViews from '../views/donasisaya/DonasiViews.vue'
+import DonasiDetailViews from '../views/donasisaya/DetailDonasiViews.vue'
 
 Vue.use(VueRouter)
 
@@ -52,6 +54,25 @@ const routes = [
     component: () => import('../views/beranda/campaign/CampaignDetailConfirmViews.vue')
   },
 
+  // funding
+  {
+    path: '/myfunding',
+    name: 'Funding History',
+    component: DonasiViews
+  },
+  {
+    path: '/myfunding/:id_funding',
+    name: 'Funding Detail History',
+    component: DonasiDetailViews
+  },
+
+  // akun
+  {
+    path: '/account',
+    name: 'Account',
+    component: () => import('../views/akun/AkunComponentViews.vue')
+  },
+  
   {
     path: '/about',
     name: 'About',
