@@ -17,4 +17,7 @@ jobs:
           script: |
             cd dev/donasi-dt-skripsi/
             git pull
+            cd backend-api/
+            composer install
+            cd ..
             echo 'Deployment successful to digital ocean' 
