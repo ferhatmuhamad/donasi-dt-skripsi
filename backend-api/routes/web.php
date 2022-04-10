@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DonasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,6 @@ Route::post('/auth/login/proses', [AuthController::class, 'prosesLogin']);
 
 // dashboard
 Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/donasi', [DonasiController::class, 'index']);
+Route::post('/dashboard/donasi/approve/{id}', [DonasiController::class, 'approve']);
+Route::post('/dashboard/donasi/reject/{id}', [DonasiController::class, 'reject']);

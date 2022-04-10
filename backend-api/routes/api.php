@@ -38,6 +38,9 @@ Route::get('doa', [DoaController::class, 'getAllDoa']);
 // banner
 Route::get('banner', [BannerController::class, 'getBanner']);
 
+// api get bukti transaksi
+Route::post('donasi/bukti/{id}', [DonasiController::class, 'getApiBuktiTransaksi']);
+
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('profile', [AuthController::class, 'userProfile']);
     Route::get('testjwt', function () {

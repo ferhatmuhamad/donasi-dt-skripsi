@@ -46,7 +46,10 @@ class DonasiController extends Controller
         }
 
         try {
-            $this->donasi_model::create($dataDonasi);
+            $newDonasi = $this->donasi_model::create($dataDonasi);
+            $newDonasi->kode_donasi = 'DNS' . date('Y') . date('m') . date('d') . '00000' . $newDonasi->id_donasi;
+            $newDonasi->save();
+
         } catch(Exception $e) {
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'failed create funding transaction', $e);
         }
@@ -145,9 +148,73 @@ class DonasiController extends Controller
 
         
         $dataDonasiUpdate->status = 'success';
-        $dataDonasiUpdate->bukti_transfer = 'upload/' . $pathImage;
+        $dataDonasiUpdate->bukti_transfer = 'uploads/' . $pathImage;
         $dataDonasiUpdate->save();
 
         return format_response('success', Response::HTTP_OK, 'success post konfirmasi donasi', $datainput);
     }
+
+
+
+
+
+
+
+    // ADMIN
+    public function index() {
+        $datadonasi = DonasiModel::join('tb_user', 'tb_user.id_user', 'tb_donasi.id_user')->select('tb_donasi.*', 'tb_user.nama', 'tb_user.id_user')->orderBy('tb_donasi.created_at', 'desc')->get();
+        
+        $data = [
+            'datadonasi' => $datadonasi
+        ];
+
+        return view('donasi.index', $data);
+    }
+
+    public function approve($id) {
+        $datadonasi = DonasiModel::where('id_donasi', $id)->first();
+
+        if($datadonasi) {
+            $datadonasi->status = 'success';
+            $datadonasi->save();
+
+            return redirect('dashboard/donasi')->with('message', 'Sukses melakukan approval donasi');
+        } else {
+            return redirect('dashboard/donasi')->with('message', 'Tidak dapat memproses approval donasi');
+        }
+    }
+
+    public function reject($id) {
+        $datadonasi = DonasiModel::where('id_donasi', $id)->first();
+
+        if($datadonasi) {
+            $datadonasi->status = 'cancel';
+            $datadonasi->save();
+
+            return redirect('dashboard/donasi')->with('message', 'Sukses melakukan pembatalan donasi');
+        } else {
+            return redirect('dashboard/donasi')->with('message', 'Tidak dapat memproses pembatalan donasi');
+        }
+    }
+
+    public function getApiBuktiTransaksi($id) {
+        $buktidonasi = DonasiModel::where('id_donasi', $id)->first();
+
+        if($buktidonasi) {
+            if($buktidonasi->status == 'success') {
+                if($buktidonasi->bukti_transfer) {
+                    return format_response('success', Response::HTTP_OK, 'success get data bukti donasi', env('APP_URL') . $buktidonasi->bukti_transfer);
+                } else {
+                    return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
+                }
+
+            } else {
+                return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
+            }
+        } else {
+            return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
+        }
+    }
+
+    // ENDADMIN
 }
