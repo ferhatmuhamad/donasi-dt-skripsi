@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -19,7 +20,7 @@ class AuthController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'prosesForgotPassword']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'prosesForgotPassword', 'showLoginPage', 'prosesLogin']]);
     }
 
     public function login(Request $request)
@@ -177,6 +178,46 @@ class AuthController extends Controller
         } catch(JWTException $e) {
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'can not fetch user data', null);
         }
+    }
+
+
+
+    // FOR BLADE TEMPLATE
+    public function showLoginPage() {
+        if(Auth::check()) {
+            return redirect('dashboard');
+        } else {
+            return view('auth.login');
+        }
+    }
+
+    public function prosesLogin(Request $request) {
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required'
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            return redirect('/auth/login')->with('error', $validator->getMessageBag());
+        }
+
+        $credentials = $request->only('email', 'password');
+
+        if(Auth::attempt($credentials)) {
+            return redirect('dashboard');
+        } else {
+            Session::flash('error', 'Email atau Password Salah');
+            return redirect('/');
+        }
+        
     }
 
     
