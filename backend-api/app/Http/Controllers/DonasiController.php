@@ -201,19 +201,29 @@ class DonasiController extends Controller
         $buktidonasi = DonasiModel::where('id_donasi', $id)->first();
 
         if($buktidonasi) {
-            if($buktidonasi->status == 'success') {
-                if($buktidonasi->bukti_transfer) {
-                    return format_response('success', Response::HTTP_OK, 'success get data bukti donasi', env('APP_URL') . $buktidonasi->bukti_transfer);
-                } else {
-                    return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
-                }
-
+            if($buktidonasi->bukti_transfer) {
+                return format_response('success', Response::HTTP_OK, 'success get data bukti donasi', env('APP_URL') . $buktidonasi->bukti_transfer);
             } else {
                 return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
             }
         } else {
-            return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
+            return format_response('success', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi', null);
         }
+
+        // if($buktidonasi) {
+        //     if($buktidonasi->status == 'success') {
+        //         if($buktidonasi->bukti_transfer) {
+        //             return format_response('success', Response::HTTP_OK, 'success get data bukti donasi', env('APP_URL') . $buktidonasi->bukti_transfer);
+        //         } else {
+        //             return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi 1', null);
+        //         }
+
+        //     } else {
+        //         return format_response('success', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi 2', env('APP_URL') . $buktidonasi->bukti_transfer);
+        //     }
+        // } else {
+        //     return format_response('failed', Response::HTTP_NOT_FOUND, 'failed get data bukti donasi 3', null);
+        // }
     }
 
     // ENDADMIN

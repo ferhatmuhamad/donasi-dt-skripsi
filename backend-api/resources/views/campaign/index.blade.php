@@ -6,45 +6,58 @@
         <div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-secondary">Daftar Campaign</h6>
+                    <h4 class="m-0 font-weight-bold text-secondary">Transaksi Donasi</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="data-donasi" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="data-campaign" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>Nominal</th>
-                                    <th>Bukti</th>
-                                    <th>Status</th>
+                                    <th>Campaign</th>
+                                    <th>Target</th>
+                                    <th>Terkumpul</th>
+                                    <th>Due Date</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datadonasi as $ds)
+                                @php($iterator = 1)
+                                @foreach ($campaign as $c)
                                 <tr>
-                                    <td>#{{$ds->kode_donasi}} </td>
-                                    <td><a class="btn btn-sm btn-primary"><i class="fas fa-external-link"></i></a> {{$ds->nama}} </td>
-                                    <td>Rp. {{number_format($ds->amount)}} </td>
-                                    <td> <button onclick="showBukti({{ $ds->id_donasi }})" class="btn btn-sm btn-primary">Bukti</button> </td>
+                                    <td>#{{$iterator}} </td>
+                                    <td>{{$c->campaign_title}} </td>
+                                    <td>Rp. {{number_format($c->goal_amount)}} </td>
                                     <td>
-                                        @if ($ds->status == 'success')
-                                        <div class="badge badge-success">Berhasil</div>
-                                        @elseif ($ds->status == 'pending')
-                                        <div class="badge badge-primary">Pending</div>
-                                        @elseif ($ds->status == 'cancel')
-                                        <div class="badge badge-danger">Batal</div>
+                                        Rp. {{number_format($c->current_amount)}}
+                                        @if($c->always_open == 0)
+                                        <span class="btn btn-sm btn-primary ml-2"> {{($c->current_amount / $c->goal_amount)*100}}% </span>
+                                        @elseif($c->always_open == 1)
+                                        <span class="btn btn-sm btn-primary ml-2"> Open </span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($ds->status == 'pending' || $ds->status == 'cancel')
-                                        <div onclick="approveModal({{ $ds->id_donasi }})" class="btn btn-sm btn-success"><i class="fas fa-check" title="Setujui"></i></div>
-                                        @elseif ($ds->status == 'pending' || $ds->status == 'success')
-                                        <div onclick="rejectModal({{ $ds->id_donasi }})" class="btn btn-sm btn-danger"><i class="fas fa-xmark" title="Batalkan"></i></div>
+                                        @if($c->always_fund == 0)
+                                        {{ date('d M Y', strtotime($c->target_day)) }}
+                                        @elseif($c->always_fund == 1)
+                                        <span class="btn btn-sm btn-primary ml-2"> Open </span>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a href="campaign/{{$c->id_campaign}}" class="btn btn-sm btn-secondary"> Detail </a>
+                                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdown-campaign" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-gear"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-campaign">
+                                                <a class="dropdown-item" href="campaign/{{$c->id_campaign}}/edit"><i class="mx-2 fas fa-pencil"></i>Edit</a>
+                                                <a class="dropdown-item" href="#"><i class="mx-2 fas fa-stop"></i>Stop</a>
+                                                <a class="dropdown-item" href="#"><i class="mx-2 fas fa-play"></i>Jalankan</a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
+                                @php($iterator++)
                                 @endforeach
                             </tbody>
                         </table>
@@ -55,7 +68,7 @@
     </div>
 </div>
 
-{{-- modal approve confirmation --}}
+<!-- {{-- modal approve confirmation --}}
 <div class="modal fade" id="approve-donasi" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -115,18 +128,17 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
 
 @section('script-custom')
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script>
-    let urlSite = '<?= env("APP_URL"); ?>';    
+    let urlSite = '<?= env("APP_URL"); ?>';
 
     $(document).ready(function() {
-        $('#data-donasi').DataTable({
+        $('#data-campaign').DataTable({
             "order": [
-                [0, "desc"]
+                [0, "asc"]
             ]
         });
     });
@@ -145,11 +157,10 @@
 
         fetch(`${urlSite}api/donasi/bukti/${id}`, {
             method: 'POST',
-        }, 
-        ).then(response => response.json()).then(
+        }, ).then(response => response.json()).then(
             json => {
                 console.log(json);
-                if(json.meta.status == 'success') {
+                if (json.meta.status == 'success') {
                     document.getElementById('url-img-bukti').setAttribute('src', json.data);
                 } else {
                     document.getElementById('url-img-bukti').setAttribute('src', `${urlSite}theme/img/not-found.png`);

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonasiController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,17 @@ Route::post('/auth/login/proses', [AuthController::class, 'prosesLogin']);
 
 // dashboard
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+// donasi
 Route::get('/dashboard/donasi', [DonasiController::class, 'index']);
 Route::post('/dashboard/donasi/approve/{id}', [DonasiController::class, 'approve']);
 Route::post('/dashboard/donasi/reject/{id}', [DonasiController::class, 'reject']);
+
+// campaign
+Route::get('/dashboard/campaign', [CampaignController::class, 'indexAdmin']);
+Route::get('/dashboard/campaign/{id}', [CampaignController::class, 'detailAdmin']);
+Route::get('/dashboard/campaign/{id}/edit', [CampaignController::class, 'edit']);
+Route::post('/dashboard/campaign/{id}/update', [CampaignController::class, 'update']);
+
+// banner
+Route::get('/dashboard/banner', [BannerController::class, 'index']);
