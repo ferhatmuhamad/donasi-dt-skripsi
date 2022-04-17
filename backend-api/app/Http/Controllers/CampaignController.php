@@ -118,11 +118,83 @@ class CampaignController extends Controller
             $campaign->goal_amount = $request->goal_amount;
         }
 
+        // donasi image
+        if($request->file('file-image-campaign')) {
+            $fileImage = $request->file('file-image-campaign');
+            $file_name = 'campaign_img_' . time() . '.' . $fileImage->getClientOriginalExtension();
+            $fileImage->move(public_path('uploads/campaign_img'), $file_name);
+
+            $campaign->path = 'uploads/campaign_img/' . $file_name;
+        }
+
         $campaign->save();
 
         return redirect()->back()->with('success', 'Success Update Campaign!');
 
         // dd($inputan);
+    }
+
+    public function tambahGambar(Request $request, $id) {
+        $inputan = $request->all();
+
+        $validator = Validator::make($inputan, [
+            'file-image' => 'required|image',
+        ]);
+
+        //Send failed response if request is not valid
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->getMessageBag());
+        }
+
+        $fileImage = $request->file('file-image');
+        $file_name = 'campaign_img_' . time() . '.' . $fileImage->getClientOriginalExtension();
+        $fileImage->move(public_path('uploads/campaign_img'), $file_name);
+
+        $countImg = CampaignImageModel::where('id_campaign', $id)->count();
+
+        $dataInput = [
+            'path' => 'uploads/campaign_img/' . $file_name,
+            'id_campaign' => $id,
+            'sequence' => $request->sequence ? $request->sequence : $countImg + 1
+        ];
+
+        $imgInsert = CampaignImageModel::create($dataInput);
+
+        return redirect()->back()->with('success', 'Sukses Add Campaign Image');
+    } 
+
+    public function editGambar($id, $id_gambar) {
+        $datacampaign = CampaignModel::where('id_campaign', $id)->first();
+
+        if(!$datacampaign) {
+            return redirect()->back()->withErrors('Campaign Not Found!');
+        }
+
+        $campaignIMG = CampaignImageModel::where('id_campaign_img', $id_gambar)->first();
+        if(!$campaignIMG) {
+            return redirect()->back()->withErrors('Campaign Image Not Found!');
+        }
+
+        $data = [
+            'campaign' => $datacampaign,
+            'image' => $campaignIMG
+        ];
+
+        // dd($campaignIMG);
+        return view('campaign.editimage', $data);
+
+    }
+
+    public function hapusGambar($id) {
+        $imgCampaign = CampaignImageModel::where('id_campaign_img', $id)->first();
+
+        if(!$imgCampaign) {
+            return redirect()->back()->withErrors('Campaign Image Not Found!');
+        }
+
+        $imgCampaign->delete();
+
+        return redirect()->back()->with('success', 'Sukses Delete Campaign Image');
     }
     // END ADMIN
 }

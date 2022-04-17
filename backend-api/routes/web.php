@@ -37,7 +37,10 @@ Route::post('/dashboard/donasi/reject/{id}', [DonasiController::class, 'reject']
 Route::get('/dashboard/campaign', [CampaignController::class, 'indexAdmin']);
 Route::get('/dashboard/campaign/{id}', [CampaignController::class, 'detailAdmin']);
 Route::get('/dashboard/campaign/{id}/edit', [CampaignController::class, 'edit']);
+Route::post('/dashboard/campaign/{id}/edit/addimage', [CampaignController::class, 'tambahGambar']);
+Route::post('/dashboard/campaign/{id}/edit/removeimage', [CampaignController::class, 'hapusGambar']);
 Route::post('/dashboard/campaign/{id}/update', [CampaignController::class, 'update']);
+Route::get('/dashboard/campaign/{id}/edit/gambar/{id_gambar}', [CampaignController::class, 'editGambar']);
 
 // banner
 Route::get('/dashboard/banner', [BannerController::class, 'index']);

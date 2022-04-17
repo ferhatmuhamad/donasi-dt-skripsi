@@ -23,20 +23,14 @@
                 <div class="card-header py-3">
                     <h4 class="m-0 font-weight-bold text-secondary">Detail Campaign</h6>
                 </div>
-                <form action="{{url('dashboard/campaign/' . $id . '/update')}}" method="POST">
+                <form action="{{url('dashboard/campaign/' . $id . '/update')}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
                                     <div class="col">
-                                        @php($iimg = 1)
-                                        @foreach ($image as $img)
-                                            @if ($iimg == 1)
-                                                <img src="/{{$img->path}}" class="img-fluid" alt="">
-                                            @endif
-                                            @php($iimg++)
-                                        @endforeach
+                                        <img src="/{{$campaign->path}}" class="img-fluid" alt="">
                                     </div>
                                 </div>
                                 <div class="row mt-3 justify-content-center">
@@ -68,6 +62,11 @@
                                 <div>
                                     <span>Nama Campaign</span>
                                     <input type="text" name="campaign_title" class="form-control mt-2" value="{{ $campaign->campaign_title }}">
+                                </div>
+
+                                <div class="mt-4">
+                                    <span>Ganti Gambar Campaign</span>
+                                    <input type="file" name="file-image-campaign" class="form-control mt-2">
                                 </div>
 
                                 <div class="mt-4">
@@ -136,6 +135,9 @@
                             <div class="col">
                                 <h4 class="m-0 font-weight-bold text-secondary">Gambar Campaign</h6>
                                 <div class="mt-4">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-image">Tambah Gambar</button>
+                                </div>
+                                <div class="mt-4">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -150,17 +152,13 @@
                                             @foreach ($image as $img)
                                                 <tr>
                                                     <td> <span>{{$iteratorGambar}}</span> </td>
-                                                    <td> <img src="/{{ $img->path }}" style="max-height: 85px;" class="img-fluid" alt=""> </td>
+                                                    <td> <img src="/{{ $img->path }}" style="max-height: 60px;" class="img-fluid" alt=""> </td>
                                                     <td>
-                                                        <select class="form-control">
-                                                            @for ($i=1; $i<=count($image); $i++)
-                                                                <option value="{{$i}}" <?= $img->sequence == $i ? 'selected' : '' ?> > {{$i}} </option>
-                                                            @endfor
-                                                        </select>
+                                                        {{ $img->sequence }}
                                                     </td>
                                                     <td>
-                                                        <div class="badge badge-danger rounded-circle p-3"><i style="font-size: 14px;" class="fas fa-trash"></i></div>
-                                                        <div class="badge badge-warning rounded-circle p-3"><i style="font-size: 14px;" class="fas fa-pencil"></i></div>
+                                                        <div onclick="rejectModal({{$img->id_campaign_img}})" class="badge badge-danger rounded-circle p-3"><i style="font-size: 14px;" class="fas fa-trash"></i></div>
+                                                        <a href="{{url('dashboard/campaign/2/edit/gambar/' . $img->id_campaign_img)}}" class="badge badge-warning rounded-circle p-3"><i style="font-size: 14px;" class="fas fa-pencil"></i></a>
                                                     </td>
                                                 </tr>
                                                 @php($iteratorGambar++)
@@ -208,8 +206,39 @@
     </div>
 </div>
 
+{{-- tambah gambar --}}
+<div class="modal fade" id="add-image" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url('dashboard/campaign/2/edit/addimage') }}" method="POST" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="modal-header">
+                    <h5>Tambah Data Gambar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <span>File Gambar</span>
+                        <input type="file" class="form-control" name="file-image">
+                    </div>
+                    <div class="mt-4">
+                        <span>Urutan</span>
+                        <input type="number" class="form-control" name="sequence">
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary btn-block" type="submit">Tambah Gambar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 {{-- modal reject confirmation --}}
-<div class="modal fade" id="reject-donasi" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="reject-campaign-img" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -224,30 +253,20 @@
                 <form action="" method="POST" id="modal-reject-form">
                     {{ csrf_field() }}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Batalkan</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-{{-- modal bukti --}}
-<div class="modal fade" id="modal-bukti" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img id="url-img-bukti" class="img-fluid" alt="">
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section('script-custom')
-
+<script>
+    function rejectModal(id) {
+        $('#reject-campaign-img').modal('show');
+        document.getElementById('modal-reject-form').setAttribute('action', '/dashboard/campaign/' + id + '/edit/removeimage');
+    }
+</script>
 @endsection

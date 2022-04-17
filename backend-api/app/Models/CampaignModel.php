@@ -12,7 +12,7 @@ class CampaignModel extends Model
     public $timestamps = true;
     protected $primaryKey = 'id_campaign';
 
-    protected $fillable = ['id_campaign', 'campaign_title', 'description', 'always_open', 'always_fund', 'target_fund', 'target_day', 'slug'];
+    protected $fillable = ['id_campaign', 'campaign_title', 'description', 'always_open', 'always_fund', 'target_fund', 'target_day', 'slug', 'path'];
 
 
     public function getCampaigns()
