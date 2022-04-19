@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CampaignImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonasiController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,9 @@ Route::post('/dashboard/donasi/reject/{id}', [DonasiController::class, 'reject']
 
 // campaign
 Route::get('/dashboard/campaign', [CampaignController::class, 'indexAdmin']);
+Route::post('/dashboard/campaign/add', [CampaignController::class, 'store']);
 Route::get('/dashboard/campaign/{id}', [CampaignController::class, 'detailAdmin']);
+Route::post('/dashboard/campaign/{id}/remove', [CampaignController::class, 'remove']);
 Route::get('/dashboard/campaign/{id}/edit', [CampaignController::class, 'edit']);
 Route::post('/dashboard/campaign/{id}/edit/addimage', [CampaignController::class, 'tambahGambar']);
 Route::post('/dashboard/campaign/{id}/edit/removeimage', [CampaignController::class, 'hapusGambar']);

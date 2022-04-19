@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CampaignModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'tb_campaign';
     public $timestamps = true;
     protected $primaryKey = 'id_campaign';
 
-    protected $fillable = ['id_campaign', 'campaign_title', 'description', 'always_open', 'always_fund', 'target_fund', 'target_day', 'slug', 'path'];
+    protected $fillable = ['id_campaign', 'campaign_title', 'description', 'always_open', 'always_fund', 'target_fund', 'target_day', 'slug', 'path', 'goal_amount'];
 
 
     public function getCampaigns()

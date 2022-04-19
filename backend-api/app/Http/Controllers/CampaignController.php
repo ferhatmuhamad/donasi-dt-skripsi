@@ -72,11 +72,6 @@ class CampaignController extends Controller
     public function update(Request $request, $id) {
         $inputan = $request->all();
 
-        // dd($inputan);
-
-        // $credentials = $request->only('email', 'password');
-
-        //valid credential
         $validator = Validator::make($inputan, [
             'campaign_title' => 'required',
             'description' => 'required',
@@ -132,6 +127,65 @@ class CampaignController extends Controller
         return redirect()->back()->with('success', 'Success Update Campaign!');
 
         // dd($inputan);
+    }
+
+    public function store(Request $request) {
+        $inputan = $request->all();
+
+        $validator = Validator::make($inputan, [
+            'campaign_title' => 'required',
+            'description' => 'required',
+            'always_open' => 'required|integer',
+            'always_fund' => 'required|integer',
+            'photo_campaign' => 'required|image'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->getMessageBag());
+        }
+
+        $datainputan = [
+            'campaign_title' => $request->campaign_title,
+            'description' => $request->description,
+            'always_open' => $request->always_open,
+            'always_fund' => $request->always_fund,
+        ];
+
+        if($request->always_open == 0) {
+            $datainputan['target_day'] = $request->target_day;
+        }
+
+        if($request->always_fund == 0) {
+            $datainputan['goal_amount'] = $request->goal_amount;
+        }
+
+        // dd($datainputan);
+
+        $fileImage = $request->file('photo_campaign');
+        $file_name = 'campaign_img_' . time() . '.' . $fileImage->getClientOriginalExtension();
+        $fileImage->move(public_path('uploads/campaign_img'), $file_name);
+        $datainputan['path'] = 'uploads/campaign_img/' . $file_name;
+
+        $newCampaign = CampaignModel::create($datainputan);
+
+        // make slug
+        $slug = strtolower($request->campaign_title);
+        $slug = str_replace(" ", "-", $slug);
+        $newCampaign->slug = $slug . '-' . $newCampaign->id_campaign;
+        $newCampaign->save();
+
+        return redirect()->back()->with('success', 'Sukses menambahkan campaign');
+    }
+
+    public function remove($id) {
+        $dataHasDelete = CampaignModel::where('id_campaign', $id)->first();
+        
+        if($dataHasDelete) {
+            $dataHasDelete->delete();
+            return redirect()->back()->with('success', 'Sukses menghapus campaign!'); 
+        } else {
+            return redirect()->back()->withErrors('Gagal menghapus campaign!'); 
+        }
     }
 
     public function tambahGambar(Request $request, $id) {
