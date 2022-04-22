@@ -177,6 +177,9 @@ return [
 
         // JWT
         \Tymon\JWTAuth\Providers\LaravelServiceProvider::class
+
+        // Spatie
+        
     ],
 
     /*

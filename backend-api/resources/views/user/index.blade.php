@@ -20,24 +20,26 @@
                         <table class="table table-bordered" id="data-campaign" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Banner</th>
-                                    <th>Deskripsi</th>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>HP</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php($iterator = 1)
-                                @foreach ($banner as $b)
+                                @foreach ($users as $user)
                                 <tr>
                                     <td> {{$iterator}} </td>
                                     <td>
-                                        <img src="/{{ $b->path }}" class="img-fluid" style="max-height: 100px;" alt="">
+                                        {{$user->nama}}
                                     </td>
-                                    <td> {{$b->description}} </td>
+                                    <td> {{$user->email}} </td>
+                                    <td> {{$user->hp}} </td>
                                     <td>
-                                        <a onclick="rejectModal({{ $b->id_banner }})" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                        <a href="banner/edit/{{$b->id_banner}}" class="btn btn-warning"><i class="fas fa-trash"></i></a>
+                                        <a onclick="rejectModal({{ $user->id_user }})" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        <a href="banner/edit/{{$user->id_user}}" class="btn btn-warning"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @php($iterator++)
@@ -55,7 +57,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    Tambah Data Banner
+                    Tambah Data User
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -97,7 +99,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda Yakin Ingin Melakukan Penghapusan Campaign Terkait ?</p>
+                    <p>Apakah Anda Yakin Ingin Melakukan Penghapusan User Terkait ?</p>
                 </div>
                 <div class="modal-footer">
                     <form action="" method="POST" id="modal-reject-form">

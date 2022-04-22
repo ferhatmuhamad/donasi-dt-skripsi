@@ -22,6 +22,12 @@ class CampaignController extends Controller
     {
         $campaign_data = $this->campaign_model->getCampaigns();
 
+        if($campaign_data) {
+            foreach($campaign_data as $cd) {
+                $cd->path = env('APP_URL') . $cd->path;
+            }
+        }
+
         return format_response('success', Response::HTTP_OK, 'success fetch data campaigns', $campaign_data);
     }
 

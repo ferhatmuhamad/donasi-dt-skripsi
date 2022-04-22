@@ -21,10 +21,10 @@ class CampaignModel extends Model
     {
         $dataCampaign = CampaignModel::get();
 
-        foreach ($dataCampaign as $dc) {
-            $dataImgCampaign = CampaignImageModel::where('id_campaign', $dc->id_campaign)->get();
-            $dc->img = $dataImgCampaign;
-        }
+        // foreach ($dataCampaign as $dc) {
+        //     $dataImgCampaign = CampaignImageModel::where('id_campaign', $dc->id_campaign)->get();
+        //     $dc->img = $dataImgCampaign;
+        // }
 
         return $dataCampaign;
     }

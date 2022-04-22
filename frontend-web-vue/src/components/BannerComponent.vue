@@ -5,7 +5,7 @@
       <!-- banner -->
         <div>
           <b-carousel id="carousel-fade" class="m-2" style="text-shadow: 0px 0px 2px #000" fade indicators img-width="1024" img-height="480">
-            <b-carousel-slide v-for="i in 3" :key="i.id" img-src="https://picsum.photos/1024/480/?image=10">
+            <b-carousel-slide v-for="index in banners" :key="index.id_banner" :img-src="index.path">
             </b-carousel-slide>
           </b-carousel>
         </div>
@@ -15,7 +15,10 @@
 
 <script>
 export default {
-  name: "BannerComponent"
+  name: "BannerComponent",
+  props: {
+    banners: Array
+  }
 }
 </script>
 

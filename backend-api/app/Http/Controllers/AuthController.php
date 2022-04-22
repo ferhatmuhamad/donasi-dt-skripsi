@@ -20,7 +20,7 @@ class AuthController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'prosesForgotPassword', 'showLoginPage', 'prosesLogin']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'forgotPassword', 'prosesForgotPassword', 'showLoginPage', 'prosesLogin', 'showLoginWeb', 'prosesLoginWeb']]);
     }
 
     public function login(Request $request)
@@ -219,6 +219,18 @@ class AuthController extends Controller
         }
         
     }
+
+
+
+
+
+    // DASHBOARD ADMIN
+
+    public function showLoginWeb() {
+        return view('auth.login');
+    }
+
+    // END DASHBOARD ADMIN
 
     
 }

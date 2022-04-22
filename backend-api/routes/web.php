@@ -6,6 +6,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CampaignImageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,27 +24,40 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth/login', [AuthController::class, 'showLoginPage']);
-Route::post('/auth/login/proses', [AuthController::class, 'prosesLogin']);
 
-// dashboard
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/auth/login', [UserController::class, 'showLoginPage'])->name('login-web');
+Route::post('/auth/login/proses', [UserController::class, 'prosesLogin']);
+Route::get('/auth/logout', [UserController::class, 'prosesLogout']);
 
-// donasi
-Route::get('/dashboard/donasi', [DonasiController::class, 'index']);
-Route::post('/dashboard/donasi/approve/{id}', [DonasiController::class, 'approve']);
-Route::post('/dashboard/donasi/reject/{id}', [DonasiController::class, 'reject']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => []], function() {
+        // dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index']);
 
-// campaign
-Route::get('/dashboard/campaign', [CampaignController::class, 'indexAdmin']);
-Route::post('/dashboard/campaign/add', [CampaignController::class, 'store']);
-Route::get('/dashboard/campaign/{id}', [CampaignController::class, 'detailAdmin']);
-Route::post('/dashboard/campaign/{id}/remove', [CampaignController::class, 'remove']);
-Route::get('/dashboard/campaign/{id}/edit', [CampaignController::class, 'edit']);
-Route::post('/dashboard/campaign/{id}/edit/addimage', [CampaignController::class, 'tambahGambar']);
-Route::post('/dashboard/campaign/{id}/edit/removeimage', [CampaignController::class, 'hapusGambar']);
-Route::post('/dashboard/campaign/{id}/update', [CampaignController::class, 'update']);
-Route::get('/dashboard/campaign/{id}/edit/gambar/{id_gambar}', [CampaignController::class, 'editGambar']);
+        // donasi
+        Route::get('/dashboard/donasi', [DonasiController::class, 'index']);
+        Route::post('/dashboard/donasi/approve/{id}', [DonasiController::class, 'approve']);
+        Route::post('/dashboard/donasi/reject/{id}', [DonasiController::class, 'reject']);
 
-// banner
-Route::get('/dashboard/banner', [BannerController::class, 'index']);
+        // campaign
+        Route::get('/dashboard/campaign', [CampaignController::class, 'indexAdmin']);
+        Route::post('/dashboard/campaign/add', [CampaignController::class, 'store']);
+        Route::get('/dashboard/campaign/{id}', [CampaignController::class, 'detailAdmin']);
+        Route::post('/dashboard/campaign/{id}/remove', [CampaignController::class, 'remove']);
+        Route::get('/dashboard/campaign/{id}/edit', [CampaignController::class, 'edit']);
+        Route::post('/dashboard/campaign/{id}/edit/addimage', [CampaignController::class, 'tambahGambar']);
+        Route::post('/dashboard/campaign/{id}/edit/removeimage', [CampaignController::class, 'hapusGambar']);
+        Route::post('/dashboard/campaign/{id}/update', [CampaignController::class, 'update']);
+        Route::get('/dashboard/campaign/{id}/edit/gambar/{id_gambar}', [CampaignController::class, 'editGambar']);
+
+        // banner
+        Route::get('/dashboard/banner', [BannerController::class, 'index']);
+        Route::post('/dashboard/banner/add', [BannerController::class, 'store']);
+        Route::post('/dashboard/banner/{id}/remove', [BannerController::class, 'remove']);
+        Route::get('/dashboard/banner/edit/{id}', [BannerController::class, 'edit']);
+        Route::post('/dashboard/banner/update/{id}', [BannerController::class, 'update']);
+
+        // user
+        Route::get('/dashboard/user', [UserController::class, 'index']);
+    });
+});
