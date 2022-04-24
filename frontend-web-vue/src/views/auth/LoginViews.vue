@@ -115,6 +115,8 @@ export default {
             // lakukan manage vuex for user
             let token = resp.data.data.token;
             this.$store.commit('login', token);
+
+            this.$router.push('/');
           } else if(resp.data.meta.status == 'error') {
             // error validation
           }

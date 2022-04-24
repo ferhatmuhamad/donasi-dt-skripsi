@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="wrapper mt-3">
-          <div class="card mr-2" style="width: 18rem;" v-for="index in campaigns" :key="index.id_campaign">
+          <div class="card mr-2" style="width: 18rem;" v-for="index in campaigns" :key="index.id_campaign" @click="goDetailCampaign(index.slug)">
             <img :src="index.path" class="card-img-top" style="max-height: 150px; object-position: center; object-fit: cover">
                 <div class="card-body shadow p-2">
                     <div class="text-truncate mt-2">
@@ -49,6 +49,12 @@ export default {
   name: 'CampaignCardComponent',
   props: {
     campaigns: Array
+  },
+
+  methods: {
+    goDetailCampaign(slug) {
+      this.$router.push('campaign/' + slug);
+    }
   }
 }
 </script>

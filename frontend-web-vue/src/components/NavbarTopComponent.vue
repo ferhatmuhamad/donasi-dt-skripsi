@@ -7,7 +7,7 @@
           <!-- for mobile -->
           <div style="max-width: fit-content" class="mx-0">
             <b-icon-circle-fill style="font-size: 18px" v-b-toggle.sidebar v-if="this.$route.path == '/' || this.$route.path == '/investasi' || this.$route.path == '/bantuan' || this.$route.path == '/akun' || this.$route.path == '/trx'" />
-            <b-icon-chevron-left class="effect" variant="secondary" v-else />
+            <b-icon-chevron-left @click="goBack()" class="effect" variant="secondary" v-else />
           </div>
 
           <!-- for mobile -->
@@ -30,7 +30,13 @@
 
 <script>
 export default {
-  name: 'NavbarTopComponent'
+  name: 'NavbarTopComponent',
+
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    }
+  }
 }
 </script>
 

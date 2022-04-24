@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 import DonasiViews from '../views/donasisaya/DonasiViews.vue'
 import DonasiDetailViews from '../views/donasisaya/DetailDonasiViews.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -46,31 +47,46 @@ const routes = [
   {
     path: '/campaign/:slug/fund',
     name: 'Campaign Resume',
-    component: () => import('../views/beranda/campaign/CampaignDetailResumeViews.vue')
+    component: () => import('../views/beranda/campaign/CampaignDetailResumeViews.vue'),
+    meta: {
+      auth: true
+    }
   },
   {
     path: '/campaign/:invoice/confirm',
     name: 'Campaign Confirm',
-    component: () => import('../views/beranda/campaign/CampaignDetailConfirmViews.vue')
+    component: () => import('../views/beranda/campaign/CampaignDetailConfirmViews.vue'),
+    meta: {
+      auth: true
+    }
   },
 
   // funding
   {
     path: '/myfunding',
     name: 'Funding History',
-    component: DonasiViews
+    component: DonasiViews,
+    meta: {
+      auth: true
+    }
   },
   {
     path: '/myfunding/:id_funding',
     name: 'Funding Detail History',
-    component: DonasiDetailViews
+    component: DonasiDetailViews,
+    meta: {
+      auth: true
+    }
   },
 
   // akun
   {
     path: '/account',
     name: 'Account',
-    component: () => import('../views/akun/AkunComponentViews.vue')
+    component: () => import('../views/akun/AkunComponentViews.vue'),
+    meta: {
+      auth: true
+    }
   },
   
   {
@@ -88,5 +104,39 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  // cek the page ada meta nya apa engga
+  if (to.matched.some(record => record.meta.auth)) {
+    store.commit('validateUser');
+    // cek di local storage,
+    if (!localStorage.getItem("token")) {
+      next({
+        path: "/auth/login",
+        params: {
+          loginSugested: "Anda harus Login untuk mengakses fitur ini!"
+        }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+
+  if (to.path == "/auth/login") {
+    if (localStorage.getItem("token")) {
+      next("/");
+    } else {
+      next();
+    }
+  }
+
+  // this.$store.dispatch("refreshToken");
+
+});
+
+
+
 
 export default router

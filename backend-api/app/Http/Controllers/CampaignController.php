@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\CampaignImageModel;
 use App\Models\CampaignModel;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CampaignController extends Controller
 {
@@ -33,6 +35,23 @@ class CampaignController extends Controller
 
     public function detail($id, Request $request) {
         $campaign_data = $this->campaign_model->getCampaign($id);
+
+        return format_response('success', Response::HTTP_OK, 'success fetch data camapign', $campaign_data);
+    }
+
+    public function detailWithSlug($slug, Request $request) {
+        $campaign_data = $this->campaign_model->getCampaignWithSlug($slug);
+
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            $campaign_data->user = $user;
+        } catch(Exception $ex) {
+            $campaign_data->user = null;
+        }
+
+        if($campaign_data == null) {
+            return format_response('failed', Response::HTTP_NOT_FOUND, 'failed fetch data camapign', $campaign_data);
+        }
 
         return format_response('success', Response::HTTP_OK, 'success fetch data camapign', $campaign_data);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CampaignModel;
 use App\Models\DoaModel;
 use App\Models\DonasiModel;
 use Exception;
@@ -36,7 +37,6 @@ class DonasiController extends Controller
 
         //valid credential
         $validator = Validator::make($credentials, [
-            'id_user' => 'required',
             'amount' => 'required|int'
         ]);
 
@@ -69,7 +69,7 @@ class DonasiController extends Controller
             }
         }
 
-        return format_response('success', Response::HTTP_OK, 'success funding campaign', $dataDonasi);
+        return format_response('success', Response::HTTP_OK, 'success funding campaign', $newDonasi);
     }
 
     public function myDonation(Request $request) {
@@ -77,6 +77,18 @@ class DonasiController extends Controller
 
         try {
             $donation = DonasiModel::where('id_user', $user->id_user)->orderBy('created_at', 'desc')->get();
+
+            if($donation) {
+                foreach($donation as $d) {
+                    $campaignTemp = CampaignModel::where('id_campaign', $d->id_campaign)->first();
+                    if($campaignTemp) {
+                        $d->campaign_title = $campaignTemp->campaign_title;
+                    }
+
+                    // parse date
+                    $d->time = date('d M Y', strtotime($d->created_at));
+                }
+            }
         } catch(Exception $e) {
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'failed get all funding', $e);
         }
@@ -85,11 +97,17 @@ class DonasiController extends Controller
         return format_response('success', Response::HTTP_OK, 'success get all donation', $donation);
     }
 
-    public function myDonationDetail(Request $request) {
+    public function myDonationDetail(Request $request, $id) {
         $user = JWTAuth::user();
 
         try {
-            $donation = DonasiModel::where('id_user', $user->id_user)->first();
+            $donation = DonasiModel::where('id_donasi', $id)->first();
+            if($donation) {
+                if($donation->bukti_transfer) {
+                    $donation->bukti_transfer = env('APP_URL') . $donation->bukti_transfer;
+                }
+                $donation->time = date('d M Y', strtotime($donation->created_at));
+            }
         } catch(Exception $e) {
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'failed get funding detail', $e);
         }
@@ -105,6 +123,22 @@ class DonasiController extends Controller
             $donation = DonasiModel::where('id_donasi', $id)->first();
         } catch(Exception $e) {
             return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'failed get funding detail', $e);
+        }
+
+        return format_response('success', Response::HTTP_OK, 'success get detail funding transaction', $donation);
+    }
+
+    public function getKonfirmasiDonasiWithNumberDonasi(Request $request, $code) {
+        $user = JWTAuth::user();
+
+        try {
+            $donation = DonasiModel::where('kode_donasi', $code)->first();
+        } catch(Exception $e) {
+            return format_response('error', Response::HTTP_INTERNAL_SERVER_ERROR, 'failed get funding detail', $e);
+        }
+
+        if($donation == null) {
+            return format_response('failed', Response::HTTP_NOT_FOUND, 'fund donation not found!', $donation);
         }
 
         return format_response('success', Response::HTTP_OK, 'success get detail funding transaction', $donation);

@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -18,8 +18,14 @@ export default new Vuex.Store({
       localStorage.setItem('token', tokenfromviews);
     },
 
-    validateUser() {
-      // axios.post(process.env.VUE_APP_API + )
+    async validateUser() {
+      await axios.get(process.env.VUE_APP_API + 'profile', {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      }).catch(() => {
+        localStorage.removeItem('token');
+      })
     }
   },
   actions: {

@@ -31,6 +31,7 @@ Route::post('do-forgot-password', [AuthController::class, 'prosesForgotPassword'
 // campaign
 Route::get('campaigns', [CampaignController::class, 'index']);
 Route::get('campaign/{id}', [CampaignController::class, 'detail']);
+Route::get('campaign/slug/{slug}', [CampaignController::class, 'detailWithSlug']);
 
 // doa
 Route::get('doa', [DoaController::class, 'getAllDoa']);
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     // donasi
     Route::post('donasi/{id}', [DonasiController::class, 'prosesDonasi']);
     Route::get('donasi/{id}/confirmation', [DonasiController::class, 'getKonfirmasiDonasi']);
+    Route::get('donasi/{code}/confirmationcode', [DonasiController::class, 'getKonfirmasiDonasiWithNumberDonasi']);
     Route::post('donasi/{id}/confirmation', [DonasiController::class, 'konfirmasiDonasi']);
     Route::post('mydonation', [DonasiController::class, 'myDonation']);
     Route::post('mydonation/{id}', [DonasiController::class, 'myDonationDetail']);
