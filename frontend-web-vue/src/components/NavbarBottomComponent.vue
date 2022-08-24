@@ -8,7 +8,7 @@
             <div>
               <font-awesome-icon icon="fa-solid fa-house-chimney" />
             </div>
-            <div style="font-size: 8px">
+            <div style="font-size: 14px" class="font-weight-bold">
               Beranda
             </div>
           </router-link>
@@ -18,7 +18,7 @@
             <div>
               <font-awesome-icon icon="fa-solid fa-clipboard-list" />
             </div>
-            <div style="font-size: 8px">
+            <div style="font-size: 14px" class="font-weight-bold">
               Donasi
             </div>
           </router-link>
@@ -28,7 +28,7 @@
             <div>
               <font-awesome-icon icon="fa-solid fa-envelope" />
             </div>
-            <div style="font-size: 8px">
+            <div style="font-size: 14px" class="font-weight-bold">
               Pesan
             </div>
           </router-link>
@@ -38,7 +38,7 @@
             <div>
               <font-awesome-icon icon="fa-solid fa-user" />
             </div>
-            <div style="font-size: 8px">
+            <div style="font-size: 14px" class="font-weight-bold">
               Akun
             </div>
           </router-link>
@@ -54,7 +54,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 library.add(faHouseChimney, faClipboardList, faEnvelope, faUser)
 
 export default {
-  name: 'NavbarBottomComponent'
+  name: 'NavbarBottomComponent',
+  active: 'home', //home, donasi, pesan, akun
 };
 </script>
 

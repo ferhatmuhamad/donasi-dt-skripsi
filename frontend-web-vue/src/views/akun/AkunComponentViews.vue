@@ -21,7 +21,7 @@
           </div>
           <div class="col-auto my-auto">
             <div>
-              <font-awesome-icon icon="right-from-bracket"></font-awesome-icon>
+              <font-awesome-icon class="color-sekunder" icon="right-from-bracket"></font-awesome-icon>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="border p-2" style="border-radius: 5px">
               <div class="row p-2">
                 <div class="col-auto" style="font-size: 40px">
-                  <font-awesome-icon icon="sack-dollar"></font-awesome-icon>
+                  <font-awesome-icon icon="sack-dollar" class="color-sekunder"></font-awesome-icon>
                 </div>
                 <div class="col my-auto" style="font-size: 14px">
                   <div>Jumlah Donasi Saya</div>
@@ -49,7 +49,7 @@
           <div class="col">
             <div class="border-top">
               <div class="row mt-3 mb-3 p-1">
-                <div class="col-auto my-auto">
+                <div class="col-auto my-auto color-sekunder">
                   <b-icon-house-fill></b-icon-house-fill>
                 </div>
                 <div class="col my-auto">Dashboard</div>
@@ -61,7 +61,7 @@
 
             <div class="border-top">
               <div class="row mt-3 mb-3 p-1">
-                <div class="col-auto my-auto">
+                <div class="col-auto my-auto color-sekunder">
                   <b-icon-house-fill></b-icon-house-fill>
                 </div>
                 <div class="col my-auto">Profil</div>
@@ -73,7 +73,7 @@
 
             <div class="border-top">
               <div class="row mt-3 mb-3 p-1">
-                <div class="col-auto my-auto">
+                <div class="col-auto my-auto color-sekunder">
                   <b-icon-house-fill></b-icon-house-fill>
                 </div>
                 <div class="col my-auto">Riwayat Donasi Saya</div>
@@ -85,7 +85,7 @@
 
             <div class="border-top">
               <div class="row mt-3 mb-3 p-1">
-                <div class="col-auto my-auto">
+                <div class="col-auto my-auto color-sekunder">
                   <b-icon-house-fill></b-icon-house-fill>
                 </div>
                 <div class="col my-auto">Bantuan</div>

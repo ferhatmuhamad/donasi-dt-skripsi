@@ -83,10 +83,10 @@
             <div class="fixed-bottom bg-white border-top">
               <div class="row p-2">
                 <div class="col" style="max-width: fit-content">
-                  <button class="btn text-white p-2" style="font-size: 12px; background-color: #123C9A"> <b-icon-share-fill></b-icon-share-fill> </button>
+                  <button class="btn text-white p-2" style="background-color: #123C9A"> <b-icon-share-fill></b-icon-share-fill> </button>
                 </div>
                 <div class="col">
-                  <button @click="goFunding()" class="btn text-white p-2 btn-block" style="font-size: 12px; background-color: #123C9A">Donasi Sekarang</button>
+                  <button @click="goFunding()" class="btn text-white p-2 btn-block" style="background-color: #123C9A">Donasi Sekarang</button>
                 </div>
               </div>
             </div>

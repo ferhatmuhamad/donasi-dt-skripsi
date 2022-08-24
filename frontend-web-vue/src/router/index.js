@@ -41,12 +41,12 @@ const routes = [
   // campaign detail
   {
     path: '/campaign/:slug',
-    name: 'Campaign Detail',
-    component: () => import('../views/beranda/campaign/CampaignDetailViews.vue')
+    name: 'Detail Donasi',
+    component: () => import('../views/beranda/campaign/CampaignDetailViews.vue'),
   },
   {
     path: '/campaign/:slug/fund',
-    name: 'Campaign Resume',
+    name: 'Resume Donasi',
     component: () => import('../views/beranda/campaign/CampaignDetailResumeViews.vue'),
     meta: {
       auth: true
@@ -54,7 +54,7 @@ const routes = [
   },
   {
     path: '/campaign/:invoice/confirm',
-    name: 'Campaign Confirm',
+    name: 'Konfirmasi Donasi',
     component: () => import('../views/beranda/campaign/CampaignDetailConfirmViews.vue'),
     meta: {
       auth: true
@@ -64,7 +64,7 @@ const routes = [
   // funding
   {
     path: '/myfunding',
-    name: 'Funding History',
+    name: 'Donasi Saya',
     component: DonasiViews,
     meta: {
       auth: true
@@ -72,7 +72,7 @@ const routes = [
   },
   {
     path: '/myfunding/:id_funding',
-    name: 'Funding Detail History',
+    name: 'Detail Donasi Saya',
     component: DonasiDetailViews,
     meta: {
       auth: true
@@ -82,16 +82,23 @@ const routes = [
   // akun
   {
     path: '/account',
-    name: 'Account',
+    name: 'Akun',
     component: () => import('../views/akun/AkunComponentViews.vue'),
     meta: {
       auth: true
     }
   },
+
+  // search
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/search/SearchViews.vue'),
+  },
   
   {
     path: '/about',
-    name: 'About',
+    name: 'Tentang',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

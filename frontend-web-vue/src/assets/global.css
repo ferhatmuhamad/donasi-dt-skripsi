@@ -40,3 +40,29 @@ input::-webkit-input-placeholder {
 a {
   color: black;
 }
+
+/* color */
+.color-primer {
+  color: #03243a;
+}
+
+.color-sekunder {
+  color: #0c77b4;
+}
+
+.color-tersier {
+  color: #ffb70a;
+}
+
+.bg-primer {
+  background-color: #03243a;
+}
+
+.bg-sekunder {
+  background-color: #0c77b4;
+}
+
+.bg-tersier {
+  background-color: #ffb70a;
+}
+
