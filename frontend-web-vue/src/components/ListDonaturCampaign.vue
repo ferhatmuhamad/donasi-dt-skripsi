@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="row mt-4">
+      <div class="row mt-4" v-if="backer_count > 0">
         <div class="col text-center">
           <button class="btn text-white" style="font-size: 12px; background-color: #123C9A">Tampilkan Lebih Banyak</button>
         </div>

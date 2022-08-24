@@ -4,10 +4,10 @@
       <navbar-top-component></navbar-top-component>
       <navbar-bottom-component></navbar-bottom-component>
       <div class="container">
-
         <div class="row">
           <div class="col-auto" style="font-size: 50px">
-            <b-icon-circle-fill ></b-icon-circle-fill>
+            <!-- <b-icon-circle-fill></b-icon-circle-fill> -->
+            <vue-letter-avatar name="Andri" :rounded="true"></vue-letter-avatar>
           </div>
           <div class="col my-auto">
             <div class="d-inline">
@@ -21,7 +21,7 @@
           </div>
           <div class="col-auto my-auto">
             <div>
-              <b-icon-align-end></b-icon-align-end>
+              <font-awesome-icon icon="right-from-bracket"></font-awesome-icon>
             </div>
           </div>
         </div>
@@ -29,9 +29,9 @@
         <div class="row mt-4">
           <div class="col">
             <div class="border p-2" style="border-radius: 5px">
-              <div class="row">
+              <div class="row p-2">
                 <div class="col-auto" style="font-size: 40px">
-                  <b-icon-diamond-fill></b-icon-diamond-fill>
+                  <font-awesome-icon icon="sack-dollar"></font-awesome-icon>
                 </div>
                 <div class="col my-auto" style="font-size: 14px">
                   <div>Jumlah Donasi Saya</div>
@@ -47,7 +47,6 @@
 
         <div class="row mt-4">
           <div class="col">
-
             <div class="border-top">
               <div class="row mt-3 mb-3 p-1">
                 <div class="col-auto my-auto">
@@ -95,25 +94,26 @@
                 </div>
               </div>
             </div>
-
-            
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NavbarBottomComponent from '../../components/NavbarBottomComponent.vue'
-import NavbarTopComponent from '../../components/NavbarTopComponent.vue'
-export default {
-  components: { NavbarTopComponent, NavbarBottomComponent },
+import Vue from "vue";
+import NavbarBottomComponent from "../../components/NavbarBottomComponent.vue";
+import NavbarTopComponent from "../../components/NavbarTopComponent.vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faRightFromBracket, faSackDollar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add(faSackDollar, faRightFromBracket);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-}
+export default {
+  components: { NavbarTopComponent, NavbarBottomComponent }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

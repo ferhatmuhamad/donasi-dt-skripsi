@@ -53,6 +53,8 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('donasi/{id}/confirmation', [DonasiController::class, 'getKonfirmasiDonasi']);
     Route::get('donasi/{code}/confirmationcode', [DonasiController::class, 'getKonfirmasiDonasiWithNumberDonasi']);
     Route::post('donasi/{id}/confirmation', [DonasiController::class, 'konfirmasiDonasi']);
+    
+    // donasi saya
     Route::post('mydonation', [DonasiController::class, 'myDonation']);
     Route::post('mydonation/{id}', [DonasiController::class, 'myDonationDetail']);
 });

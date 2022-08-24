@@ -29,8 +29,8 @@ Route::get('/auth/login', [UserController::class, 'showLoginPage'])->name('login
 Route::post('/auth/login/proses', [UserController::class, 'prosesLogin']);
 Route::get('/auth/logout', [UserController::class, 'prosesLogout']);
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::group(['middleware' => []], function() {
+// Route::group(['middleware' => 'auth'], function () {
+//     Route::group(['middleware' => []], function() {
         // dashboard
         Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -59,5 +59,5 @@ Route::group(['middleware' => 'auth'], function () {
 
         // user
         Route::get('/dashboard/user', [UserController::class, 'index']);
-    });
-});
+    // });
+// });

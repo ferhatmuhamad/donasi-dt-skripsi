@@ -20,6 +20,7 @@
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.14",
     "vue-element-loading": "^2.0.2",
+    "vue-letter-avatar": "^0.1.6",
     "vue-router": "^3.2.0",
     "vuelidate": "^0.7.7",
     "vuex": "^3.4.0"

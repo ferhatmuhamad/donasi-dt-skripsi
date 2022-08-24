@@ -6,7 +6,7 @@
       <div>
         <div class="wrapper mt-3">
           <div class="card mr-2" style="width: 18rem" v-for="index in doa" :key="index.id_doa">
-            <div class="card-body shadow p-3">
+            <div class="card-body p-3">
               <div class="row">
                 <div class="col text-truncate" style="font-size: 10px">{{index.nama}}</div>
                 <div class="col text-right" style="font-size: 8px">{{getTimeNow(index.created_at)}}</div>

@@ -9,6 +9,9 @@ import VueElementLoading from 'vue-element-loading'
 Vue.component('VueElementLoading', VueElementLoading)
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueLetterAvatar from 'vue-letter-avatar';
+ 
+Vue.use(VueLetterAvatar);
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'

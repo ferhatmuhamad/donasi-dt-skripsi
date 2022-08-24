@@ -8390,6 +8390,11 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==
 
+vue-letter-avatar@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/vue-letter-avatar/-/vue-letter-avatar-0.1.6.tgz#c990420352d52b1828b2c0daba01438885a815b8"
+  integrity sha512-SXpa42vBK6o04ux9iHLBu38jIlQN0R7Qk3v0eKm58drXQWamUACLs6gxHBZ4kpVIhWWC+dQik5tmeDhgKuKURg==
+
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.5.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-16.5.0.tgz#09c4e0712466899e34b99a686524f19165fb2892"

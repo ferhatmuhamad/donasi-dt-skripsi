@@ -16,7 +16,7 @@ class BannerController extends Controller
 
         if($databanner) {
             foreach($databanner as $db) {
-                $db->path = env('APP_URL') . $db->path;
+                $db->path = url('/' . $db->path);
             }
         }
 

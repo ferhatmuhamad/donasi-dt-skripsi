@@ -53,11 +53,11 @@ class CampaignModel extends Model
             $dataCampaign = CampaignModel::where('slug', $slug)->first();
             
             if($dataCampaign) {
-                $dataCampaign->path = env('APP_URL') . $dataCampaign->path;
+                $dataCampaign->path = url($dataCampaign->path);
                 $campaign_img = CampaignImageModel::where('id_campaign', $dataCampaign->id_campaign)->get();
                 if($campaign_img) {
                     foreach($campaign_img as $ci) {
-                        $ci->path = env('APP_URL') . $ci->path;
+                        $ci->path = url($ci->path);
                     }
                 }
                 $dataCampaign->img = $campaign_img;

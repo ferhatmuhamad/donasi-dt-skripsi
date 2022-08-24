@@ -26,7 +26,7 @@ class CampaignController extends Controller
 
         if($campaign_data) {
             foreach($campaign_data as $cd) {
-                $cd->path = env('APP_URL') . $cd->path;
+                $cd->path = url($cd->path);
             }
         }
 
@@ -41,6 +41,10 @@ class CampaignController extends Controller
 
     public function detailWithSlug($slug, Request $request) {
         $campaign_data = $this->campaign_model->getCampaignWithSlug($slug);
+
+        if($campaign_data == null) {
+            return format_response('failed', Response::HTTP_NOT_FOUND, 'failed fetch data camapign', $campaign_data);
+        }
 
         try {
             $user = JWTAuth::parseToken()->authenticate();
